@@ -1,0 +1,37 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "jsdelivr",
+      "library": "simplemde@1.11.2",
+      "destination": "wwwroot/lib/simplemde/",
+      "files": [
+        "debug/simplemde.css",
+        "debug/simplemde.debug.js",
+        "debug/simplemde.debug.min.js",
+        "debug/simplemde.js",
+        "debug/simplemde.min.css",
+        "debug/simplemde.min.js",
+        "dist/simplemde.min.css",
+        "dist/simplemde.min.js",
+        "src/css/simplemde.css",
+        "src/css/simplemde.min.css",
+        "src/js/simplemde.js",
+        "src/js/simplemde.min.js",
+        "src/js/codemirror/tablist.js",
+        "src/js/codemirror/tablist.min.js",
+        ".eslintrc",
+        ".npmignore",
+        ".travis.yml",
+        "bower.json",
+        "CONTRIBUTING.md",
+        "gulpfile.js",
+        "gulpfile.min.js",
+        "LICENSE",
+        "package.json",
+        "README.md"
+      ]
+    }
+  ]
+}
