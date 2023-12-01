@@ -22,12 +22,10 @@ namespace EZWiki.Pages
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
+            id = id ?? "Home";
+            
             var article = await _context.Articles.FirstOrDefaultAsync(m => m.Topic == id);
+           
             if (article == null)
             {
                 return NotFound();
