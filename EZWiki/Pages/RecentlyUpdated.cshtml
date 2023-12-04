@@ -1,0 +1,24 @@
+﻿@page
+@model EZWiki.Pages.RecentlyUpdatedModel
+
+@{
+    ViewData["Title"] = "RecentlyUpdated";
+}
+
+<h1>RecentlyUpdated</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+
+@foreach (var item in Model.Article) {
+
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title"> <a href="~/@item.Topic">@item.Topic</a></h5>
+            <h6 class="card-subtitle mb-2 text-muted">@item.Published.ToShortDateString()</h6>
+            <a asp-page="./Edit" asp-route-id="@item.Topic">Edit</a> |
+            <a asp-page="./Delete" asp-route-id="@item.Topic">Delete</a>
+        </div>
+    </div>
+}
