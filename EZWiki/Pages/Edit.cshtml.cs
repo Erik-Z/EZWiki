@@ -65,7 +65,7 @@ namespace EZWiki.Pages
                 }
             }
 
-            return RedirectToPage("./Index");
+            return Redirect($"./{(Article.Topic == "HomePage" ? "" : Article.Topic)}");
         }
 
         private bool ArticleExists(string id)

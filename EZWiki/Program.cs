@@ -7,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages(options =>
 {
     options.Conventions.AddPageRoute("/Details", "/{id?}");
+    options.Conventions.AddPageRoute("/Details", @"/Index");
 });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 

@@ -37,7 +37,7 @@ namespace EZWiki.Pages
             _context.Articles.Add(Article);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("./Index");
+            return Redirect($"./{Article.Topic}");
         }
     }
 }
