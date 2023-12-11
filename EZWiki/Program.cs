@@ -1,5 +1,6 @@
 using EZWiki.Models;
 using Microsoft.EntityFrameworkCore;
+using NodaTime;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,8 @@ builder.Services.AddRazorPages(options =>
     options.Conventions.AddPageRoute("/Details", "/{id?}");
     options.Conventions.AddPageRoute("/Details", @"/Index");
 });
+
+builder.Services.AddSingleton<IClock>(SystemClock.Instance);
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => 
     options.UseSqlite(builder.Configuration.GetConnectionString("ApplicationDbContextSQLite")));

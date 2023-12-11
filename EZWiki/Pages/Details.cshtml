@@ -6,7 +6,7 @@
 }
 
 <h1>@Model.Article.Topic</h1>
-<h6>Last Published: @Model.Article.Published</h6>
+<h6>Last Published: <span class="timestamp" data-value="@Model.Article.Published"></span></h6>
 
 
 <markdown>@Model.Article.Content</markdown>
@@ -16,5 +16,4 @@
     {
         <text>| </text> <a href="~/">Back to Home</a>
     }
-    
 </div>

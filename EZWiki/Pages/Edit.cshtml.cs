@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using NodaTime;
 using EZWiki.Models;
 
 namespace EZWiki.Pages
@@ -13,10 +14,12 @@ namespace EZWiki.Pages
     public class EditModel : PageModel
     {
         private readonly EZWiki.Models.ApplicationDbContext _context;
+        private readonly IClock _clock;
 
-        public EditModel(EZWiki.Models.ApplicationDbContext context)
+        public EditModel(EZWiki.Models.ApplicationDbContext context, IClock clock)
         {
             _context = context;
+            _clock = clock;
         }
 
         [BindProperty]
@@ -48,6 +51,7 @@ namespace EZWiki.Pages
             }
 
             _context.Attach(Article).State = EntityState.Modified;
+            Article.Published = _clock.GetCurrentInstant();
 
             try
             {

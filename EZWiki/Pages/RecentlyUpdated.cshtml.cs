@@ -23,7 +23,7 @@ namespace EZWiki.Pages
         public async Task OnGetAsync()
         {
             Article = await _context.Articles.OrderByDescending(a => 
-                a.Published).Take(10).ToListAsync();
+                a.PublishedDateTime).Take(10).ToListAsync();
         }
     }
 }

@@ -32,6 +32,10 @@
         "package.json",
         "README.md"
       ]
+    },
+    {
+      "library": "moment.js@2.29.4",
+      "destination": "wwwroot/lib/moment.js/"
     }
   ]
 }
