@@ -9,7 +9,8 @@
             let currentTimeStamp = ts.dataset.value;
             let currentDate = new Date(currentTimeStamp);
             ts.textContent = currentDate.toString();
-        
+
+        }
     }
 
     reformatTimeStamps();
