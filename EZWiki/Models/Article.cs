@@ -7,7 +7,7 @@ namespace EZWiki.Models
 {
     public class Article
     {
-        [Required, Key]
+        [Required, Key, MaxLength(100)]
         public string Topic { get; set; }
 
         [NotMapped]
