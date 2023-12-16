@@ -26,6 +26,10 @@ namespace EZWiki.Pages
             if (id == null)
             {
                 return NotFound();
+            } 
+            else if (id == "Home") // Prevent deletion of the home page 
+            { 
+                return RedirectToPage("./Details");
             }
 
             var article = await _context.Articles.FirstOrDefaultAsync(m => m.Topic == id);
