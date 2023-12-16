@@ -34,6 +34,12 @@ namespace EZWiki.Pages
                 return Page();
             }
 
+            if (_context.Articles.Any(a => a.Topic == Article.Topic))
+            {
+                ModelState.AddModelError($"{nameof(Article)}.{nameof(Article.Topic)}", $"{Article.Topic} already exists");
+                return Page();
+            }
+
             Article.Published = _clock.GetCurrentInstant();
 
             _context.Articles.Add(Article);

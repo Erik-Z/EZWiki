@@ -10,5 +10,6 @@ namespace EZWiki.Models
             
         }
         public DbSet<Article> Articles { get; set; }
+
     }
 }
