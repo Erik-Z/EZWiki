@@ -34,14 +34,13 @@
 </div>
 
 @section Scripts {
-
-    <script src="~/lib/simplemde/dist/simplemde.min.js"></script>
-    <script>
-        var simplemde = new SimpleMDE();
-    </script>
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_EditorScript");
+    }
 }
 
 @section Styles {
-    <link href="~/lib/simplemde/dist/simplemde.min.css" rel="stylesheet" />
+    @{
+        await Html.RenderPartialAsync("_EditorStyle");
+    }
 }

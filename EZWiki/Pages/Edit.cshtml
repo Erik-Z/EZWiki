@@ -13,7 +13,6 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Article.Topic" />
             <div class="form-group">
-                <label asp-for="Article.Content" class="control-label"></label>
                 <textarea asp-for="Article.Content" class="form-control"></textarea>
                 <span asp-validation-for="Article.Content" class="text-danger"></span>
             </div>
@@ -29,16 +28,9 @@
 </div>
 
 @section Scripts {
-
-    <script src="~/lib/simplemde/dist/simplemde.min.js"></script>
-    <script>
-        var simplemde = new SimpleMDE();
-    </script>
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{ await Html.RenderPartialAsync("_EditorScript"); }
 }
 
 @section Styles {
-    <link href="~/lib/simplemde/dist/simplemde.min.css" rel="stylesheet" />
+    @{ await Html.RenderPartialAsync("_EditorStyle"); }
 }
