@@ -1,0 +1,46 @@
+﻿@page
+@model EZWiki.Pages.AllArticlesModel
+
+@{
+    ViewData["Title"] = "AllArticles";
+}
+
+@functions {
+    public void NextPage()
+    {
+        if (Model.PageNumber < Model.TotalPages) {
+            Model.PageNumber = Model.PageNumber + 1;
+        }
+    }
+
+    public void PreviousPage()
+    {
+        if (Model.PageNumber > 1) {
+            Model.PageNumber = Model.PageNumber - 1;
+        }
+    }
+}
+
+<h1>All Articles</h1>
+
+@foreach (var item in Model.Articles)
+{
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title"> <a href="~/@item.Topic">@item.Topic</a></h5>
+            <h6 class="card-subtitle mb-2 text-muted"><span class="timestamp" data-value="@item.Published"></span></h6>
+            <a asp-page="./Edit" asp-route-id="@item.Topic">Edit</a> |
+            <a asp-page="./Delete" asp-route-id="@item.Topic">Delete</a>
+        </div>
+    </div>
+}
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" onclick="@PreviousPage">Previous</a></li>
+        @for (var pageNum = 1; pageNum <= Model.TotalPages; ++pageNum){
+            <li class="page-item"><a class="page-link" asp-page="./AllArticles" asp-route-PageNumber="@pageNum">@pageNum</a></li>
+        }
+        <li class="page-item"><a class="page-link" asp-page-handler="NextPage">Next</a></li>
+    </ul>
+</nav>
