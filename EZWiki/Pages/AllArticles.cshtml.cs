@@ -8,7 +8,7 @@ namespace EZWiki.Pages
     public class AllArticlesModel : PageModel
     {
         public readonly ApplicationDbContext _context;
-        public const int _PageSize = 20;
+        public const int _PageSize = 1;
 
         public AllArticlesModel(ApplicationDbContext context)
         {
