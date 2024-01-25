@@ -61,78 +61,31 @@ namespace EZWiki.Helpers
 
         public static string RemapInternationalCharToAscii(char c)
         {
-            string s = c.ToString().ToLowerInvariant();
-            if ("àåáâäãåą".Contains(s))
+            Dictionary<char, string> charMap = new Dictionary<char, string>
             {
-                return "a";
-            }
-            else if ("èéêëę".Contains(s))
+                {'à', "a"}, {'å', "a"}, {'á', "a"}, {'â', "a"}, {'ä', "a"}, {'ã', "a"}, {'å', "a"}, {'ą', "a"},
+                {'è', "e"}, {'é', "e"}, {'ê', "e"}, {'ë', "e"}, {'ę', "e"},
+                {'ì', "i"}, {'í', "i"}, {'î', "i"}, {'ï', "i"}, {'ı', "i"},
+                {'ò', "o"}, {'ó', "o"}, {'ô', "o"}, {'õ', "o"}, {'ö', "o"}, {'ø', "o"}, {'ő', "o"}, {'ð', "o"},
+                {'ù', "u"}, {'ú', "u"}, {'û', "u"}, {'ü', "u"}, {'ŭ', "u"}, {'ů', "u"},
+                {'ç', "c"}, {'ć', "c"}, {'č', "c"}, {'ĉ', "c"},
+                {'ż', "z"}, {'ź', "z"}, {'ž', "z"},
+                {'ś', "s"}, {'ş', "s"}, {'š', "s"}, {'ŝ', "s"},
+                {'ñ', "n"}, {'ń', "n"},
+                {'ý', "y"}, {'ÿ', "y"},
+                {'ğ', "g"}, {'ĝ', "g"},
+                {'ř', "r"},
+                {'ł', "l"},
+                {'đ', "d"},
+                {'ß', "ss"},
+                {'Þ', "th"},
+                {'ĥ', "h"},
+                {'ĵ', "j"}
+            };
+
+            if (charMap.ContainsKey(c))
             {
-                return "e";
-            }
-            else if ("ìíîïı".Contains(s))
-            {
-                return "i";
-            }
-            else if ("òóôõöøőð".Contains(s))
-            {
-                return "o";
-            }
-            else if ("ùúûüŭů".Contains(s))
-            {
-                return "u";
-            }
-            else if ("çćčĉ".Contains(s))
-            {
-                return "c";
-            }
-            else if ("żźž".Contains(s))
-            {
-                return "z";
-            }
-            else if ("śşšŝ".Contains(s))
-            {
-                return "s";
-            }
-            else if ("ñń".Contains(s))
-            {
-                return "n";
-            }
-            else if ("ýÿ".Contains(s))
-            {
-                return "y";
-            }
-            else if ("ğĝ".Contains(s))
-            {
-                return "g";
-            }
-            else if (c == 'ř')
-            {
-                return "r";
-            }
-            else if (c == 'ł')
-            {
-                return "l";
-            }
-            else if (c == 'đ')
-            {
-                return "d";
-            }
-            else if (c == 'ß')
-            {
-                return "ss";
-            }
-            else if (c == 'Þ')
-            {
-                return "th";
-            }
-            else if (c == 'ĥ')
-            {
-                return "h";
-            }
-            else if (c == 'ĵ')
-            {
-                return "j";
+                return charMap[c];
             }
             else
             {
