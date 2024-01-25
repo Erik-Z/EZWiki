@@ -36,13 +36,3 @@
 }
 
 <Pagination page-number="Model.PageNumber" total-pages="Model.TotalPages"></Pagination>
-
-@* <nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <li class="page-item"><a class="page-link" onclick="@PreviousPage">Previous</a></li>
-        @for (var pageNum = 1; pageNum <= Model.TotalPages; ++pageNum){
-            <li class="page-item"><a class="page-link" asp-page="./AllArticles" asp-route-PageNumber="@pageNum">@pageNum</a></li>
-        }
-        <li class="page-item"><a class="page-link" asp-page-handler="NextPage">Next</a></li>
-    </ul>
-</nav> *@
