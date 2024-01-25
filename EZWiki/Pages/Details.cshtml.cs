@@ -20,11 +20,11 @@ namespace EZWiki.Pages
 
         public Article Article { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(string slug)
         {
-            id = id ?? "Home";
+            slug = slug ?? "home";
             
-            var article = await _context.Articles.FirstOrDefaultAsync(m => m.Topic == id);
+            var article = await _context.Articles.FirstOrDefaultAsync(m => m.Slug == slug.ToLower());
            
             if (article == null)
             {

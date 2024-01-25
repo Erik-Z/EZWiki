@@ -21,18 +21,14 @@ namespace EZWiki.Pages
         [BindProperty]
         public Article Article { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             } 
-            else if (id == "Home") // Prevent deletion of the home page 
-            { 
-                return RedirectToPage("./Details");
-            }
 
-            var article = await _context.Articles.FirstOrDefaultAsync(m => m.Topic == id);
+            var article = await _context.Articles.FirstOrDefaultAsync(m => m.Id == id);
 
             if (article == null)
             {
@@ -40,12 +36,14 @@ namespace EZWiki.Pages
             }
             else
             {
-                Article = article;
+                if (article.Topic == "Home") return RedirectToPage("./Details"); // Prevent deletion of the home page 
+
+                Article = article;   
             }
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(string id)
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (id == null)
             {

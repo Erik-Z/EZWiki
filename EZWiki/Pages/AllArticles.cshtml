@@ -27,10 +27,10 @@
 {
     <div class="card mb-3">
         <div class="card-body">
-            <h5 class="card-title"> <a href="~/@item.Topic">@item.Topic</a></h5>
+            <h5 class="card-title"> <a href="~/@item.Slug">@item.Topic</a></h5>
             <h6 class="card-subtitle mb-2 text-muted"><span class="timestamp" data-value="@item.Published"></span></h6>
-            <a asp-page="./Edit" asp-route-id="@item.Topic">Edit</a> |
-            <a asp-page="./Delete" asp-route-id="@item.Topic">Delete</a>
+            <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
         </div>
     </div>
 }

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using NodaTime;
 using EZWiki.Models;
+using EZWiki.Helpers;
 
 namespace EZWiki.Pages
 {
@@ -25,14 +26,14 @@ namespace EZWiki.Pages
         [BindProperty]
         public Article Article { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(string id)
+        public async Task<IActionResult> OnGetAsync(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var article =  await _context.Articles.FirstOrDefaultAsync(m => m.Topic == id);
+            var article =  await _context.Articles.FirstOrDefaultAsync(m => m.Id == id);
             if (article == null)
             {
                 return NotFound();
@@ -51,7 +52,19 @@ namespace EZWiki.Pages
             }
 
             _context.Attach(Article).State = EntityState.Modified;
+
+            // check if the slug already exists in the database.  
+            var slug = UrlHelpers.URLFriendly(Article.Topic.ToLower());
+            var isAvailable = !_context.Articles.Any(x => x.Slug == slug && x.Id != Article.Id);
+
+            if (isAvailable == false)
+            {
+                ModelState.AddModelError($"{nameof(Article)}.{nameof(Article.Topic)}", $"{Article.Topic} already exists");
+                return Page();
+            }
+
             Article.Published = _clock.GetCurrentInstant();
+            Article.Slug = slug;
 
             try
             {
@@ -59,7 +72,7 @@ namespace EZWiki.Pages
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ArticleExists(Article.Topic))
+                if (!ArticleExists(Article.Id))
                 {
                     return NotFound();
                 }
@@ -69,12 +82,12 @@ namespace EZWiki.Pages
                 }
             }
 
-            return Redirect($"./{(Article.Topic == "HomePage" ? "" : Article.Topic)}");
+            return Redirect($"./{(Article.Slug == "home" ? "" : Article.Slug)}");
         }
 
-        private bool ArticleExists(string id)
+        private bool ArticleExists(int id)
         {
-            return _context.Articles.Any(e => e.Topic == id);
+            return _context.Articles.Any(e => e.Id == id);
         }
     }
 }

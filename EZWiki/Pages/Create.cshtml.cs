@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using NodaTime;
 using EZWiki.Models;
+using EZWiki.Helpers;
 
 namespace EZWiki.Pages
 {
@@ -29,23 +30,23 @@ namespace EZWiki.Pages
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
-            if (!ModelState.IsValid)
-            {
-                return Page();
-            }
 
-            if (_context.Articles.Any(a => a.Topic == Article.Topic))
+            var slug = UrlHelpers.URLFriendly(Article.Topic.ToLower());
+            var isAvailable = !_context.Articles.Any(x => x.Slug == slug);
+
+            if (!isAvailable)
             {
                 ModelState.AddModelError($"{nameof(Article)}.{nameof(Article.Topic)}", $"{Article.Topic} already exists");
                 return Page();
             }
 
             Article.Published = _clock.GetCurrentInstant();
+            Article.Slug = slug;
 
             _context.Articles.Add(Article);
             await _context.SaveChangesAsync();
 
-            return Redirect($"./{Article.Topic}");
+            return Redirect($"./{Article.Slug}");
         }
     }
 }

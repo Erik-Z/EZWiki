@@ -19,7 +19,9 @@ namespace EZWiki.Models
             
             context.Articles.Add(new Article
             {
+                Id = 1,
                 Topic = "Home",
+                Slug = "home",
                 Content = "Welcome to EZWiki! This is the default home page, please change",
                 Published = NodaTime.SystemClock.Instance.GetCurrentInstant()
             });

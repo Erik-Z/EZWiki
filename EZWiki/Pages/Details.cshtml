@@ -1,4 +1,4 @@
-﻿@page "{id?}"
+﻿@page "{slug?}"
 @model EZWiki.Pages.DetailsModel
 
 @{
@@ -11,8 +11,8 @@
 
 <markdown>@Model.Article.Content</markdown>
 <div>
-    <a asp-page="./Edit" asp-route-id="@Model.Article.Topic">Edit</a>
-    @if (Model.Article.Topic != "Home")
+    <a asp-page="./Edit" asp-route-id="@Model.Article.Id">Edit</a>
+    @if (Model.Article.Slug != "home")
     {
         <text>| </text> <a href="~/">Back to Home</a>
     }

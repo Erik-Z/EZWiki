@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages(options =>
 {
-    options.Conventions.AddPageRoute("/Details", "/{id?}");
+    options.Conventions.AddPageRoute("/Details", "/{Slug?}");
     options.Conventions.AddPageRoute("/Details", @"/Index");
 });
 

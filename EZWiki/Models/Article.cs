@@ -7,8 +7,13 @@ namespace EZWiki.Models
 {
     public class Article
     {
-        [Required, Key, MaxLength(100)]
-        public string Topic { get; set; }
+        [Key]
+        public int Id { get; set; }
+
+        [Required, MaxLength(100)]
+        public required string Topic { get; set; }
+
+        public string Slug { get; set; }
 
         [NotMapped]
         public Instant Published { get; set; }

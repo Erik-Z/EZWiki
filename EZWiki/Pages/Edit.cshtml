@@ -11,7 +11,7 @@
     <div class="col-md-12">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Article.Topic" />
+            <input type="hidden" asp-for="Article.Id" />
             <div class="form-group">
                 <textarea asp-for="Article.Content" class="form-control"></textarea>
                 <span asp-validation-for="Article.Content" class="text-danger"></span>
