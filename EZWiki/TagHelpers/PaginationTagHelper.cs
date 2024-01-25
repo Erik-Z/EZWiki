@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.Runtime.TagHelpers;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 
@@ -11,7 +12,20 @@ namespace EZWiki.TagHelpers
         public int PageNumber { get; set; }
         public int TotalPages { get; set; }
 
-        public override void Process(TagHelperContext context, TagHelperOutput output)
+        private readonly IHtmlGenerator _htmlGenerator;
+
+        [HtmlAttributeNotBound]
+        [ViewContext]
+        public ViewContext ViewContext { get; set; }
+
+        public string AspPage { get; set; }
+
+        public PaginationTagHelper(IHtmlGenerator htmlGenerator)
+        {
+            _htmlGenerator = htmlGenerator;
+        }
+
+        public override async Task ProcessAsync(TagHelperContext context, TagHelperOutput output)
         {
             output.TagMode = TagMode.StartTagAndEndTag;
             output.TagName = "ul";
@@ -28,20 +42,36 @@ namespace EZWiki.TagHelpers
             for (int pageNum = 1; pageNum <= TotalPages; pageNum++)
             {
                 TagBuilder li = new TagBuilder("li");
-                TagBuilder a = new TagBuilder("a");
-                
-                a.Attributes.Add("class", "page-link");
-                a.Attributes.Add("href", $"?PageNumber={pageNum}");
-                a.InnerHtml.Append(pageNum.ToString());
-
-                li.InnerHtml.AppendHtml(a);
                 li.AddCssClass("page-item");
                 if (pageNum == PageNumber)
                 {
                     li.AddCssClass("active");
+                    TagBuilder span = new TagBuilder("span");
+                    span.AddCssClass("page-link");
+                    span.InnerHtml.Append($"{pageNum}");
+                    li.InnerHtml.AppendHtml(span);
+                }
+                else
+                {
+                    object route = new { PageNumber = pageNum };
+                    TagBuilder a = _htmlGenerator.GeneratePageLink(
+                        ViewContext,
+                        linkText: pageNum.ToString(),
+                        pageName: AspPage,
+                        pageHandler: string.Empty,
+                        protocol: string.Empty,
+                        hostname: string.Empty,
+                        fragment: string.Empty,
+                        routeValues: route,
+                        htmlAttributes: null
+                    );
+                    a.AddCssClass("page-link");
+                    li.InnerHtml.AppendHtml(a);
                 }
                 output.Content.AppendHtml(li);
             }
+            await base.ProcessAsync(context, output);
+            return;
         }
 
         
