@@ -11,6 +11,11 @@ namespace EZWiki.Models
         }
         public DbSet<Article> Articles { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Article>().HasIndex(a => a.Slug).IsUnique();
+        }
+
         internal static void SeedData(ApplicationDbContext context)
         {
             context.Database.EnsureCreated();

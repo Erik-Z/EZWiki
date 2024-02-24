@@ -13,6 +13,7 @@ namespace EZWiki.Models
         [Required, MaxLength(100)]
         public required string Topic { get; set; }
 
+        [Required]
         public string Slug { get; set; }
 
         [NotMapped]
